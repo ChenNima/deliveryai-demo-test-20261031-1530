@@ -5,8 +5,8 @@ const resources = {
   zh: {
     translation: {
       common: {
-        title: '沸点 · 火锅点单概念演示',
-        meta_desc: '沸点火锅点单与门店履约概念演示，非官方产品',
+        title: '静态计数器',
+        meta_desc: '纯静态计数器演示页面，支持加一、重置、键盘操作与移动端适配。',
         banner: '概念演示 / 非官方 · 仅用于服务流程原型展示',
         brand: '沸',
         brand_name: '沸点',
@@ -43,6 +43,11 @@ const resources = {
         preview_message: '预览模式 · 已绑定 A08 桌',
         welcome_message: '欢迎进入概念演示',
         unknown_area: '',
+        counter_title: '静态计数器',
+        counter_desc: '使用加一或重置操作体验纯静态计数器。',
+        counter_current: '当前计数',
+        counter_increment: '加一',
+        counter_reset: '重置',
       },
       bind: {
         title_l1: '热气升腾，',
@@ -243,8 +248,8 @@ const resources = {
   en: {
     translation: {
       common: {
-        title: 'Boiling Point · Hotpot Ordering Demo',
-        meta_desc: 'Boiling Point hotpot ordering and store fulfillment concept demo, unofficial',
+        title: 'Static Counter',
+        meta_desc: 'A static counter demo page supporting increment, reset, keyboard interaction, and mobile adaptation.',
         banner: 'Concept Demo / Unofficial · For service flow prototyping only',
         brand: '沸',
         brand_name: 'Boiling Point',
@@ -281,6 +286,11 @@ const resources = {
         preview_message: 'Preview mode · Table A08 bound',
         welcome_message: 'Welcome to the concept demo',
         unknown_area: '',
+        counter_title: 'Static Counter',
+        counter_desc: 'Experience a pure static counter with increment and reset actions.',
+        counter_current: 'Current count',
+        counter_increment: 'Increment',
+        counter_reset: 'Reset',
       },
       bind: {
         title_l1: 'Steam rising,',
