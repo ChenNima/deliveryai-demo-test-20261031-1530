@@ -44,13 +44,18 @@ test.describe('静态计数器页面', () => {
 
     await page.keyboard.press('Tab')
     await expect(increment).toBeFocused()
-    await expect(increment).toHaveCSS('outline-style', 'solid')
+    // Chromium 将系统焦点环计算为 outline-style: auto；断言可见焦点环的实际宽度/颜色/偏移。
+    await expect(increment).toHaveCSS('outline-width', '2px')
+    await expect(increment).toHaveCSS('outline-color', 'rgb(225, 59, 43)')
+    await expect(increment).toHaveCSS('outline-offset', '2px')
     await page.keyboard.press('Enter')
     await expect(page.getByRole('status')).toHaveText('当前计数：1')
 
     await page.keyboard.press('Tab')
     await expect(reset).toBeFocused()
-    await expect(reset).toHaveCSS('outline-style', 'solid')
+    await expect(reset).toHaveCSS('outline-width', '2px')
+    await expect(reset).toHaveCSS('outline-color', 'rgb(225, 59, 43)')
+    await expect(reset).toHaveCSS('outline-offset', '2px')
     await page.keyboard.press('Space')
     await expect(page.getByRole('status')).toHaveText('当前计数：0')
   })
