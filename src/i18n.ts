@@ -5,8 +5,8 @@ const resources = {
   zh: {
     translation: {
       common: {
-        title: '费用申请',
-        meta_desc: '提交整数分金额的报销申请，自动识别低额通过与高额主管审批。',
+        title: '静态计数器',
+        meta_desc: '纯静态计数器演示页面，支持加一、重置、键盘操作与移动端适配。',
         banner: '概念演示 / 非官方 · 仅用于服务流程原型展示',
         brand: '沸',
         brand_name: '沸点',
@@ -268,8 +268,8 @@ const resources = {
   en: {
     translation: {
       common: {
-        title: 'Expense Application',
-        meta_desc: 'Submit reimbursement amounts in integer cents with automatic approval and supervisor review.',
+        title: 'Static Counter',
+        meta_desc: 'A static counter demo page supporting increment, reset, keyboard interaction, and mobile adaptation.',
         banner: 'Concept Demo / Unofficial · For service flow prototyping only',
         brand: '沸',
         brand_name: 'Boiling Point',

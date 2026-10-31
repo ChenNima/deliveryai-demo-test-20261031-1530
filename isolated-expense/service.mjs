@@ -79,8 +79,7 @@ export function createExpenseServer() {
       return
     }
 
-    // FAULT_INJECTION_V1: intentionally uses > instead of the frozen contract's >=.
-    const status = input.amountCents > 100000 ? 'supervisor_pending' : 'approved'
+    const status = input.amountCents >= 100000 ? 'supervisor_pending' : 'approved'
     const application = { id: randomUUID(), amountCents: input.amountCents, status }
     applicationsByKey.set(key, application)
     send(response, 200, application)

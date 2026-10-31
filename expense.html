@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbf5ea" />
+    <meta name="description" content="隔离费用申请演示页面。" />
+    <title>费用申请</title>
+    <script>
+      (function () {
+        try {
+          var lang = localStorage.getItem('i18nextLng');
+          document.documentElement.lang = (lang === 'en') ? 'en' : 'zh-CN';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body><div id="root"></div><script type="module" src="/src/expense-main.tsx"></script></body>
+</html>

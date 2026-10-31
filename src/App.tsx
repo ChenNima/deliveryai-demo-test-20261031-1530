@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ExpenseApplicationView } from '@/components/ExpenseApplicationView'
+import { CounterView } from '@/components/CounterView'
 
 export default function App() {
   const { t, i18n } = useTranslation()
@@ -12,5 +12,5 @@ export default function App() {
     if (metaDesc) metaDesc.setAttribute('content', t('common.meta_desc'))
   }, [i18n.language, t])
 
-  return <ExpenseApplicationView />
+  return <CounterView />
 }
