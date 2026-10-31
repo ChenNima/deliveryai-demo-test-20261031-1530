@@ -5,38 +5,38 @@
 
 ## 项目概述
 
-沸点火锅点单与门店履约概念演示应用（`hdl-order-demo`）。React SPA，业务逻辑全部在浏览器内存中运行，不依赖后端 API。`server/` 仅为可选的健康检查 Express 应用，不参与核心链路。
+静态计数器演示页面（`static-counter-demo`）。React SPA，页面状态全部在浏览器内存中运行，不依赖后端 API。`server/` 仅为可选的健康检查 Express 应用，不参与当前验收链路。
 
-主流程视图状态机：`home → welcome → menu → order → checkout`。视图经 hash 路由与 URL 一一对应（`#/home`、`#/welcome`、`#/menu`、`#/order`、`#/checkout`），支持深链接与浏览器前进/后退；选用 hash 模式（非 History 模式）以兼容 Vite `base './'` 与 GitHub Pages 子路径部署。
+当前验收对象为单一静态计数器页面，入口为根路径，不使用 hash 路由，也不依赖任何业务状态机。
 
 ## 技术栈
 
-React 18 · TypeScript ~5.6 · Vite 6 · Tailwind CSS 3.4 · Radix UI（Dialog）· lucide-react · class-variance-authority · i18next（中/英）· Playwright（E2E）。状态用 `useReducer` 内存态管理；ESM；路径别名 `@` → `src/`。
+React 18 · TypeScript ~5.6 · Vite 6 · Tailwind CSS 3.4 · i18next（中/英）· Playwright（E2E）。计数器状态用 `useState` 内存态管理；ESM；路径别名 `@` → `src/`。
 
 ## 目录结构
 
 ```
 src/
 ├── main.tsx               # 入口，挂载 React
-├── App.tsx                # 根组件：useReducer + 视图路由 + 全局布局
-├── types.ts               # AppState / AppAction / Product / CartItem / OrderItem / ServiceRequest
+├── App.tsx                # 根组件：挂载静态计数器页面并同步文档元信息
+├── types.ts               # 旧演示遗留类型，当前计数器页面不依赖
 ├── i18n.ts                # i18next 初始化 + zh/en 资源
 ├── index.css              # 基础样式、老人模式、过渡、自定义 utilities
-├── state/orderReducer.ts  # 订单/购物车/服务/售罄/支付 reducer
-├── data/menu.ts           # 菜品/分类/桌台静态数据
+├── state/orderReducer.ts  # 旧演示遗留 reducer，当前计数器页面不依赖
+├── data/menu.ts           # 旧演示遗留数据，当前计数器页面不依赖
 ├── hooks/useElderlyMode.ts# 老人模式：localStorage + html.elderly
-├── hooks/useViewRoute.ts  # 视图 ↔ URL hash 双向同步（含深链接/非法地址纠正）
+├── hooks/useViewRoute.ts  # 旧演示遗留 hash 路由 hook，当前计数器页面不依赖
 ├── lib/utils.ts           # cn（类名合并）、money（¥ 格式化）
-├── components/            # 页面组件（HomeView/WelcomeView/MenuView/OrderView/CheckoutView 对应各视图）；通用件在 components/ui/（button、dialog）
+├── components/            # 当前入口为 CounterView.tsx；其余为旧演示遗留组件
 └── assets/                # hotpot/broth/beef/vegetables 图片
-e2e/super-spicy.spec.ts    # 超级辣风险提示 E2E 验收
-e2e/view-routing.spec.ts   # 视图 URL hash 路由 E2E 验收
+e2e/counter.spec.ts        # 静态计数器 E2E 验收
+
 index.html                 # 入口，含初始化语言的内联脚本
 tailwind.config.js         # 自定义色板；vite.config.ts 配 base './' 与 @ 别名
 playwright.config.ts       # E2E 配置
 ```
 
-> 页面级视图组件统一以 `*View.tsx` 命名，文件名与视图状态一一对应（`home`→`HomeView`、`welcome`→`WelcomeView`…）。新增视图时同步：`ViewName` 类型、`useViewRoute` 的 `VIEWS`、对应 `*View.tsx` 组件。
+> 当前仅保留单一 `CounterView.tsx` 作为页面级入口；旧演示组件仅作为遗留代码保留，不参与当前验收。
 
 ## 样式约定
 
@@ -55,9 +55,9 @@ playwright.config.ts       # E2E 配置
 
 ## 编码约定
 
-- 页面组件放 `src/components/`，通用件放 `src/components/ui/`；弹窗用封装的 `Dialog`，按钮用 CVA `Button`（default/secondary/outline/ghost），图标用 lucide-react 并靠 `currentColor` 继承。
+- 当前页面组件为 `src/components/CounterView.tsx`；旧演示的 `Dialog`、`Button` 等组件仅作遗留代码保留，不参与当前验收。
 - 样式只用 Tailwind 类名，不用 CSS Modules / styled-components。
-- 新增 i18n 文案在 `src/i18n.ts` 的 zh/en 两处同步添加，按功能分组（`common.`、`menu.`、`cart.`、`order.` 等）。
+- 新增 i18n 文案在 `src/i18n.ts` 的 zh/en 两处同步添加，当前计数器相关文案统一放在 `common.counter_*`。
 - 新增 `localStorage` 持久化一律 `try/catch` 包裹，不可用时降级内存态；现有 key：`i18nextLng`、`elderly-mode`（`true`/`false`）。
 - 需要在 React 挂载前设置 html 属性/class 时，扩展 `index.html` 的内联脚本。
 - npm 源默认走 `https://registry.npmmirror.com`（见根目录与 `server/.npmrc`）。
@@ -79,4 +79,4 @@ E2E 的执行约束（浏览器来源、报告路径、批量修复、不重跑�
 - 不引入额外的 UI 库或设计系统框架。
 - 不使用 CSS Modules 或 styled-components。
 - 不修改 `server/`（仅健康检查，无业务逻辑）。
-- 不引入后端 API 调用，所有数据为前端内存态。
+- 不引入后端 API 调用，计数器状态为前端内存态，刷新后回到初始值。

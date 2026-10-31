@@ -35,15 +35,15 @@
 ## 5. E2E 用例编写
 
 - 用例按需求编号命名（`REQ-001` / `NFR-001`），`test.describe` 标注功能域，单用例只验证一个验收点；正反路径都要覆盖。
-- 跨视图的重复点击步骤收敛到导航辅助函数（参考 `goToBrothSpec`），用例体只留与断言相关的操作。
-- 定位优先级：`getByRole`（带可访问名）> `getByText`/`getByLabel` > 语义 locator（`article`、`heading`）> 兜底 CSS；避免依赖易变 DOM 层级，确需 nth 时注释原因。
-- 断言业务结果而非实现：可见文案、Tailwind 业务 class（如 `border-chili-500`）、元素可见性，不断言内部状态字段。
+- 重复打开页面的步骤收敛到辅助函数（参考 `openCounterPage`），用例体只留与断言相关的操作。
+- 定位优先级：`getByRole`（带可访问名）> `getByText`/`getByLabel` > 语义 locator（`heading`、`status`）> 兜底 CSS；避免依赖易变 DOM 层级，确需 nth 时注释原因。
+- 断言业务结果而非实现：可见文案、焦点样式、元素可见性与触控尺寸，不断言内部状态字段。
 - 用例独立、可乱序执行（应用为内存态，刷新即重置）；点击被设计上的遮罩拦截时可 `force: true` 并注释。
 
 ## 6. 提交前自审与验证选择
 
-- 是否覆盖需求正反两类路径（如超级辣弹提示、其它辣度不弹）。
-- 改样式/文案时是否破坏既有基于 class/文案的 E2E 断言；zh/en 文案是否同步；新增 localStorage key 是否遵循 try/catch 降级。
+- 是否覆盖需求正反两类路径（如加一递增、重置回到 0）。
+- 改样式/文案时是否破坏既有基于可访问名/文案的 E2E 断言；zh/en 文案是否同步；新增 localStorage key 是否遵循 try/catch 降级。
 - 是否触及 [../AGENTS.md](../AGENTS.md) 的“不要做”；目录结构、色板或约定变化时同步更新文档。
 - 按报错来源选命令：类型/构建用 `npm run build` 或 `npx tsc -b --noEmit`；静态规范用 `npm run lint`；交互回归用 `npx playwright test`；不用构建命令排查 E2E 行为问题。
 - 无依赖的只读命令（`git status`、`git log`、`rg -n`、读配置）合并到同一轮并行调用，减少串行往返。
